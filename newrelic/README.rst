@@ -20,6 +20,30 @@ Features
 * Front end page metrics (page rendering) is enabled by default. (only on the front end)
 * Works in threaded (workers=0) and multi process (workers>0) modes.
 
+.. image:: https://cloud.githubusercontent.com/assets/744550/16216646/51bb121e-3721-11e6-86de-8e0f728adc93.png
+    :alt: 'Main'
+    :width: 988
+    :align: left
+
+.. image:: https://cloud.githubusercontent.com/assets/744550/16216646/51bb121e-3721-11e6-86de-8e0f728adc93.png
+    :alt: 'Transactions'
+    :width: 988
+    :align: left
+
+.. image:: https://cloud.githubusercontent.com/assets/744550/16216650/5ef7f2b2-3721-11e6-93e3-5f53b76775f9.png
+    :alt: 'Browser'
+    :width: 988
+    :align: left
+
+.. image:: https://cloud.githubusercontent.com/assets/744550/16216733/210d5da6-3722-11e6-9d10-5c928d235ff1.png
+    :alt: 'Errors'
+    :width: 988
+    :align: left
+
+.. image:: https://cloud.githubusercontent.com/assets/744550/16216737/264dea6a-3722-11e6-9265-d1034b1fc0db.png
+    :alt: 'Error Detail'
+    :width: 988
+    :align: left
 
 ===========
 Get Started
