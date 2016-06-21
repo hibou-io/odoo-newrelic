@@ -25,7 +25,7 @@ Features
     :width: 988
     :align: left
 
-.. image:: https://cloud.githubusercontent.com/assets/744550/16216646/51bb121e-3721-11e6-86de-8e0f728adc93.png
+.. image:: https://cloud.githubusercontent.com/assets/744550/16216648/56763590-3721-11e6-89f4-9843ad216572.png
     :alt: 'Transactions'
     :width: 988
     :align: left
