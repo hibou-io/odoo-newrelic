@@ -24,13 +24,16 @@ class BusController(odoo.addons.bus.controllers.main.BusController):
             newrelic.agent.ignore_transaction()
         return super(BusController, self).poll(channels, last, options)
 
-if tools.config['debug_mode']:
-    class TestErrors(http.Controller):
-        @http.route('/test_errors_404', auth='public')
-        def test_errors_404(self):
-            import werkzeug
-            return werkzeug.exceptions.NotFound('Successful test of 404')
+try:
+    if tools.config['debug_mode']:
+        class TestErrors(http.Controller):
+            @http.route('/test_errors_404', auth='public')
+            def test_errors_404(self):
+                import werkzeug
+                return werkzeug.exceptions.NotFound('Successful test of 404')
 
-        @http.route('/test_errors_500', auth='public')
-        def test_errors_500(self):
-            raise ValueError
+            @http.route('/test_errors_500', auth='public')
+            def test_errors_500(self):
+                raise ValueError
+except KeyError:
+    pass
