@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from openerp import http, tools
-import openerp.addons.bus.controllers.main
+from odoo import http, tools
+import odoo.addons.bus.controllers.main
 
 try:
     import newrelic
@@ -10,7 +10,7 @@ except ImportError:
     newrelic = None
 
 
-class BusController(openerp.addons.bus.controllers.main.BusController):
+class BusController(odoo.addons.bus.controllers.main.BusController):
 
     @http.route()
     def send(self, channel, message):
@@ -24,7 +24,7 @@ class BusController(openerp.addons.bus.controllers.main.BusController):
             newrelic.agent.ignore_transaction()
         return super(BusController, self).poll(channels, last, options)
 
-if tools.config['dev_mode']:
+if tools.config['debug_mode']:
     class TestErrors(http.Controller):
         @http.route('/test_errors_404', auth='public')
         def test_errors_404(self):
