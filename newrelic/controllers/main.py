@@ -24,7 +24,7 @@ class BusController(openerp.addons.bus.controllers.main.BusController):
             newrelic.agent.ignore_transaction()
         return super(BusController, self).poll(channels, last, options)
 
-if tools.config['dev_mode']:
+if tools.config['debug_mode']:
     class TestErrors(http.Controller):
         @http.route('/test_errors_404', auth='public')
         def test_errors_404(self):
