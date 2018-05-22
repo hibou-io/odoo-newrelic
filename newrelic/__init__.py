@@ -1,5 +1,5 @@
 # -*- encoding: UTF-8 -*-
-import controllers
+from . import controllers
 
 from logging import getLogger
 _logger = getLogger(__name__)

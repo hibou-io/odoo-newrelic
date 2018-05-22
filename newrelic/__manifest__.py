@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 {
     'name': 'NewRelic Instrumentation',
     'description': 'Wraps requests etc.',
