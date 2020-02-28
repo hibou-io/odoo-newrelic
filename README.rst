@@ -7,6 +7,34 @@ Someone tells you, "Hey your site is being *slow* right now."
 What do you do?  Restart Odoo? Look at Nginx access logs?  Could it be PostgreSQL?
 We've all been there...
 
+===========
+Get Started
+===========
+
+1) Install the newrelic python package through pip or from source:
+
+```
+pip3 install newrelic
+```
+
+2) Create a newrelic.ini file `New Relic Python Quick Start <https://docs.newrelic.com/docs/agents/python-agent/getting-started/python-agent-quick-start>`_ (you can skip if you'd rather use ENV variable, see (3) from below):
+
+```
+newrelic-admin generate-config YOUR_LICENSE_KEY /etc/odoo-newrelic.ini
+```
+
+3) Add this module to your existing addons folder or create a new addons folder and add it to the Odoo addons path.
+4) Make sure that Odoo loads and uses your New Relic details which are usually set in a New Relic configuration file.
+Add the New Relic configuration file to your **odoo-server.conf** file:
+
+```
+new_relic_config_file = /etc/odoo-newrelic.ini
+```
+
+Optionally you can set environment variables for the whole New Relic configuration. See `New Relic Python Agent Configuration <https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-configuration#environment-variables>`_
+
+5) Restart your odoo process and install the 'newrelic' module in Odoo Apps. (You may need to restart your odoo server again and look at the logs for information about a misconfiguration or missing modules.)
+
 ========
 Features
 ========
@@ -42,29 +70,6 @@ Features
     :alt: 'Error Detail'
     :width: 988
     :align: left
-
-===========
-Get Started
-===========
-
-1) Install the newrelic python package through pip or from source:
-```
-pip3 install newrelic
-```
-2) Create a newrelic.ini file `New Relic Python Quick Start <https://docs.newrelic.com/docs/agents/python-agent/getting-started/python-agent-quick-start>`_ (you can skip if you'd rather use ENV variable, see (3) from below):
-```
-newrelic-admin generate-config YOUR_LICENSE_KEY /etc/odoo-newrelic.ini
-```
-3) Add this module to your existing addons folder or create a new addons folder and add it to the Odoo addons path.
-4) Make sure that Odoo loads and uses your New Relic details which are usually set in a New Relic configuration file.
-Add the New Relic configuration file to your **odoo-server.conf** file:
-```
-new_relic_config_file = /etc/odoo-newrelic.ini
-```
-
-Optionally you can set environment variables for the whole New Relic configuration. See `New Relic Python Agent Configuration <https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-configuration#environment-variables>`_
-
-5) Restart your odoo process and install the 'newrelic' module in Odoo Apps. (You may need to restart your odoo server again and look at the logs for information about a misconfiguration or missing modules.)
 
 
 
