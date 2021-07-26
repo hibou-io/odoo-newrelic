@@ -9,4 +9,6 @@
     'depends': [
         'web',
     ],
+    "installable": True,
+    "application": False,
 }
