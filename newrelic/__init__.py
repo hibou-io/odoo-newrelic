@@ -38,7 +38,7 @@ try:
         target.application_unproxied = newrelic.agent.WSGIApplicationWrapper(target.application_unproxied)
 
         # Error handling
-        def should_ignore(exc, value, tb):
+        def status_code(exc, value, tb):
             from werkzeug.exceptions import HTTPException
 
             # Werkzeug HTTPException can be raised internally by Odoo or in
@@ -46,8 +46,7 @@ try:
             # HTTP status code.
 
             if isinstance(value, HTTPException):
-                if newrelic.agent.ignore_status_code(value.code):
-                    return True
+                return value.code
 
         def _nr_wrapper_handle_exception_(wrapped):
             def _handle_exception(*args, **kwargs):
@@ -56,7 +55,7 @@ try:
                 if transaction is None:
                     return wrapped(*args, **kwargs)
 
-                transaction.record_exception(ignore_errors=should_ignore)
+                transaction.notice_error(status_code=status_code)
 
                 name = newrelic.agent.callable_name(args[1])
                 with newrelic.agent.FunctionTrace(transaction, name):
