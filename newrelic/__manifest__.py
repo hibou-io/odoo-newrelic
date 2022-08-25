@@ -1,7 +1,7 @@
 {
     'name': 'NewRelic Instrumentation',
     'description': 'Wraps requests etc.',
-    'version': '1.1',
+    'version': '15.0.0.9.0',
     'website': 'https://hibou.io/',
     'author': 'Hibou Corp. <hello@hibou.io>',
     'license': 'AGPL-3',

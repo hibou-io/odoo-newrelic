@@ -1,16 +1,19 @@
 # -*- encoding: UTF-8 -*-
 from . import controllers
 
-from logging import getLogger
-_logger = getLogger(__name__)
+import logging 
+_logger = logging.getLogger(__name__)
 
 try:
     import odoo
     target = odoo.service.server.server
+    if not target:
+        # we started too early, probably because of a server wide module issue...
+        _logger.error('Cannot run newrelic as a server wide module because it needs to patch the running server.')
 
     try:
         instrumented = target._nr_instrumented
-    except AttributeError:
+    except AttributeError as e:
         instrumented = target._nr_instrumented = False
 
     if instrumented:
