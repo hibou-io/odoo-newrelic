@@ -31,10 +31,13 @@ Add the New Relic configuration file to your **odoo-server.conf** file:
 new_relic_config_file = /etc/odoo-newrelic.ini
 # optionally you can set type of the environment "development", "test", "staging" or "production"
 new_relic_environment = staging
+# optionally set tracing level (default is odoo.models.BaseModel:limited)
+new_relic_odoo_trace = odoo.models.BaseModel:public
 ```
 
 Optionally you can set environment variables for the whole New Relic configuration. See `New Relic Python Agent Configuration <https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-configuration#environment-variables>`_
 
+Set environment variable **NEW_RELIC_ODOO_TRACE** to control what functions the module will purpusefully trace.
 
 5) Restart your odoo process and install the 'newrelic' module in Odoo Apps. (You may need to restart your odoo server again and look at the logs for information about a misconfiguration or missing modules.)
 
@@ -48,6 +51,7 @@ Features
 * PostgreSQL and Python metrics are easily visible.
 * Front end page metrics (page rendering) is enabled by default. (only on the front end)
 * Works in threaded (workers=0) and multi process (workers>0) modes.
+* Configurable function tracing with defaults for a subset of ORM Methods to preserve performance.
 
 .. image:: https://cloud.githubusercontent.com/assets/744550/16216646/51bb121e-3721-11e6-86de-8e0f728adc93.png
     :alt: 'Main'
