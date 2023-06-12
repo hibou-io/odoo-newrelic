@@ -1,10 +1,12 @@
 import os
 from . import controllers
+from odoo.tools import config
 
 import logging 
 _logger = logging.getLogger(__name__)
 
-try:
+
+def initialization():
     import odoo
     target = odoo.service.server.server
     if not target:
@@ -19,7 +21,6 @@ try:
     if instrumented:
         _logger.info("NewRelic instrumented already")
     else:
-        import odoo.tools.config as config
         import newrelic.agent
 
 
@@ -121,6 +122,12 @@ try:
 
         target = odoo.http.WebRequest
         target._handle_exception = _nr_wrapper_handle_exception_(target._handle_exception)
+
+
+try:
+    # the Odoo server will stop after its initialization, server will not be available for monkey-patching
+    if not config.get("stop_after_init"):
+        initialization()
 
 except ImportError:
     _logger.warn('newrelic python module not installed or other missing module')
