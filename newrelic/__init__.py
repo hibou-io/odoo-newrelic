@@ -39,13 +39,12 @@ def initialization():
         target.app = nr_app
 
         # Workers new WSGI Application
-        target = odoo.service.wsgi_server
-        target.application_unproxied = newrelic.agent.WSGIApplicationWrapper(target.application_unproxied)
-        
+        odoo.http.Application = newrelic.agent.WSGIApplicationWrapper(odoo.http.Application)
+
         try:
             _logger.info('attaching to bus controller')
             import odoo.addons.bus.controllers.main
-            newrelic.agent.wrap_background_task(odoo.addons.bus.controllers.main, 'BusController._poll', application=nr_app)
+            newrelic.agent.wrap_background_task(odoo.addons.bus.websocket, 'Websocket._dispatch_bus_notifications', application=nr_app)
             _logger.info('finished attaching to bus controller')
         except Exception as e:
             _logger.exception(e)
@@ -105,8 +104,8 @@ def initialization():
             if isinstance(value, HTTPException):
                 return value.code
 
-        def _nr_wrapper_handle_exception_(wrapped):
-            def _handle_exception(*args, **kwargs):
+        def _nr_wrapper_handle_error(wrapped):
+            def handle_error(*args, **kwargs):
                 transaction = newrelic.agent.current_transaction()
 
                 if transaction is None:
@@ -118,10 +117,10 @@ def initialization():
                 with newrelic.agent.FunctionTrace(transaction, name):
                     return wrapped(*args, **kwargs)
 
-            return _handle_exception
+            return handle_error
 
-        target = odoo.http.WebRequest
-        target._handle_exception = _nr_wrapper_handle_exception_(target._handle_exception)
+        for target in (odoo.http.HttpDispatcher, odoo.http.JsonRPCDispatcher):
+            target.handle_error = _nr_wrapper_handle_error(target.handle_error)
 
 
 try:
